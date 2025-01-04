@@ -82,11 +82,11 @@ Function Set-HardenACL {
     try {            
         if ($inheritedObjects -ne "" -and $Null -ne $inheritedObjects) {
             switch ($inheritedObjects) {
-                "group" { $inheritanceguid = New-Object Guid bf967a9c-0de6-11d0-a285-00aa003049e2 }
-                "user" { $inheritanceguid = New-Object Guid bf967aba-0de6-11d0-a285-00aa003049e2 }
+                "group"    { $inheritanceguid = New-Object Guid bf967a9c-0de6-11d0-a285-00aa003049e2 }
+                "user"     { $inheritanceguid = New-Object Guid bf967aba-0de6-11d0-a285-00aa003049e2 }
                 "computer" { $inheritanceguid = New-Object Guid bf967a86-0de6-11d0-a285-00aa003049e2 }
-                "contact" { $inheritanceguid = New-Object Guid 5cb41ed0-0e4c-11d0-a286-00aa003049e2 }
-                "member" { $inheritanceguid = New-Object Guid bf9679c0-0de6-11d0-a285-00aa003049e2 }
+                "contact"  { $inheritanceguid = New-Object Guid 5cb41ed0-0e4c-11d0-a286-00aa003049e2 }
+                "member"   { $inheritanceguid = New-Object Guid bf9679c0-0de6-11d0-a285-00aa003049e2 }
             }
         }
         else {
@@ -95,11 +95,11 @@ Function Set-HardenACL {
 
         if ($ObjectType -ne "" -and $Null -ne $ObjectType) {
             switch ($ObjectType) {
-                "group" { $Objectguid = New-Object Guid bf967a9c-0de6-11d0-a285-00aa003049e2 }
-                "user" { $Objectguid = New-Object Guid bf967aba-0de6-11d0-a285-00aa003049e2 }
+                "group"    { $Objectguid = New-Object Guid bf967a9c-0de6-11d0-a285-00aa003049e2 }
+                "user"     { $Objectguid = New-Object Guid bf967aba-0de6-11d0-a285-00aa003049e2 }
                 "computer" { $Objectguid = New-Object Guid bf967a86-0de6-11d0-a285-00aa003049e2 }
-                "contact" { $Objectguid = New-Object Guid 5cb41ed0-0e4c-11d0-a286-00aa003049e2 }
-                "member" { $Objectguid = New-Object Guid bf9679c0-0de6-11d0-a285-00aa003049e2 }
+                "contact"  { $Objectguid = New-Object Guid 5cb41ed0-0e4c-11d0-a286-00aa003049e2 }
+                "member"   { $Objectguid = New-Object Guid bf9679c0-0de6-11d0-a285-00aa003049e2 }
             }
         }
         else {
@@ -107,10 +107,12 @@ Function Set-HardenACL {
         }
 
         switch ($Trustee) {
-            ("Authenticated Users") { 
+            ("Authenticated Users" -or "Utilisateurs authentifiés") 
+            { 
                 $SID = New-Object System.Security.Principal.SecurityIdentifier("S-1-5-11")
             }
-            Default {
+            Default 
+            {
                 $group = Get-ADGroup $trustee
                 $SID = New-Object System.Security.Principal.SecurityIdentifier $($group.SID)
             }
@@ -327,17 +329,17 @@ Function Push-DelegationModel {
                     $result = Set-HardenSDDL -TargetDN ($HADacl.TargetDN -replace "RootDN", $DomainRootDN) -Trustee $HADacl.Trustee -CustomAccessRule $HADacl.CustomAccessRule
 
                     if ($result) {
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "---> +++ Cus. Rule: TargetDN= " + $HADacl.TargetDN
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                 Trustee= " + $HADacl.Trustee
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                   Right= " + $HADacl.CustomAccessRule
-                    }
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "---> +++ Cus. Rule: TargetDN= " + $HADacl.TargetDN
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                 Trustee= " + $HADacl.Trustee
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                   Right= " + $HADacl.CustomAccessRule
+                        }
                     Else {
-                        $ErrIdx++
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "---> !!! Cus. Rule addition failed!"
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "---> !!! Cus. Rule: TargetDN= " + $HADacl.TargetDN
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                 Trustee= " + $HADacl.Trustee
-                        $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                   Right= " + $HADacl.CustomAccessRule
-                    }
+                            $ErrIdx++
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "---> !!! Cus. Rule addition failed!"
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "---> !!! Cus. Rule: TargetDN= " + $HADacl.TargetDN
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                 Trustee= " + $HADacl.Trustee
+                            $dbgMess += (Get-Date -UFormat "%Y-%m-%d %T ") + "--->                   Right= " + $HADacl.CustomAccessRule
+                        }
                 }
               
 
@@ -399,7 +401,8 @@ Function Push-DelegationModel {
 ## Version: 01.00.000                                           ##
 ##  Author: Constantin Hager                                    ##
 ##################################################################
-function New-ADDGuidMap {
+function New-ADDGuidMap
+{
     <#
         .SYNOPSIS
             Creates a guid map for the delegation part
@@ -432,7 +435,8 @@ function New-ADDGuidMap {
 ## Version: 01.00.000                                           ##
 ##  Author: contact@hardenad.net                                ##
 ##################################################################
-function New-ADDExtendedRightMap {
+function New-ADDExtendedRightMap
+{
     <#
         .SYNOPSIS
             Creates a extended rights map for the delegation part
@@ -510,8 +514,10 @@ Function Set-HardenSDDL {
     #.Getting the TargetDN's ACL 
     $acl = Get-Acl -Path "AD:\$TargetDN" 
 
-    Switch ($CustomAccessRule) {
-        "Computer_DomJoin" {
+    Switch ($CustomAccessRule)
+    {
+        "Computer_DomJoin"
+        {
             #.Convert Trustee to NT Account.
             $TrusteeSID = (Get-ADGroup $Trustee).SID
  
@@ -548,5 +554,4 @@ Function Set-HardenSDDL {
     #.Return result
     Return $Result
 }
-
 Export-ModuleMember -Function *

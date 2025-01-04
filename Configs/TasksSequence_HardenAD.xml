@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
 	<!--
   		Revision: 2024/04/13 - contact@hardenad.net
@@ -85,7 +85,7 @@
 			-->
 			<OU Class="HardenAD_PROD-T1and2" Name="Harden_T12" Description="Tier 1 and Tier 2 resources">
 				<ChildOU Name="Contacts" Description="Contacts objects belonging to this Tier" />
-				<ChildOU Name="Groups" Description="Groups objects belonging to this Tier" >
+				<ChildOU Name="Groups" Description="Groups objects belonging to this Tier">
 					<ChildOU Name="AADSync" Description="Groups objects synced with Azure AD" />
 				</ChildOU>
 				<ChildOU Name="Servers" Description="Computer objects belonging to this Tier and acting as servers">
@@ -108,7 +108,7 @@
 				This class generate an OU tree used for administration purpose in a tiering model. This is the English Edtion.
 			-->
 			<OU Class="HardenAD_PROD-LEGACY" Name="Harden_TL" Description="Legacy resources">
-				<ChildOU Name="Groups" Description="Groups objects belonging to this Tier" >
+				<ChildOU Name="Groups" Description="Groups objects belonging to this Tier">
 					<ChildOU Name="AADSync" Description="Groups objects synced with Azure AD" />
 				</ChildOU>
 				<ChildOU Name="Servers" Description="Computer objects belonging to this Tier and acting as servers">
@@ -222,14 +222,7 @@
 		<!-- 
 			Delegation for auditing computer creation and deletion 
 		-->
-		<!-- EN-US - START -->
 		<ACL Audit="True" Trustee="Domain Users" Right="CreateChild, DeleteChild" RightType="Success" Inheritance="All" InheritedObjects="" ObjectType="computer" TargetDN="ROOTDN" />
-		<!-- EN-US - END   -->
-		<!-- FR-FR - START -->
-		<!--
-		<ACL Audit="True" Trustee="Utilisateurs du domaine" Right="CreateChild, DeleteChild" RightType="Success" Inheritance="All" InheritedObjects="" ObjectType="computer" TargetDN="ROOTDN" />
-		-->
-		<!-- FR-FR - END   -->
 		<!--
 			Custom Access Rule: allow domain join only
 		-->
@@ -248,34 +241,24 @@
 
 			The french edition is commented: you can use it by removing the english translation and uncoment each line.
 		-->
-		<!-- EN-US - START -->
 		<wellKnownID objectClass="text" translateFrom="%Administrators%" translateTo="Administrators" />
 		<wellKnownID objectClass="text" translateFrom="%DomainAdmins%" translateTo="Domain Admins" />
 		<wellKnownID objectClass="text" translateFrom="%SchemaAdmins%" translateTo="Schema Admins" />
 		<wellKnownID objectClass="text" translateFrom="%EnterpriseAdmins%" translateTo="Enterprise Admins" />
 		<wellKnownID objectClass="text" translateFrom="%Users%" translateTo="Users" />
 		<wellKnownID objectClass="text" translateFrom="%Guest%" translateTo="Guest" />
-		<!-- EN-US - END   -->
-		<!-- FR-FR - START -->
-		<!--
-		<wellKnownID objectClass="text" translateFrom="%Administrators%" translateTo="Administrateurs" />
-		<wellKnownID objectClass="text" translateFrom="%DomainAdmins%" translateTo="Admins du domaine" />
-		<wellKnownID objectClass="text" translateFrom="%SchemaAdmins%" translateTo="Administrateurs du schéma" />
-		<wellKnownID objectClass="text" translateFrom="%EnterpriseAdmins%" translateTo="Administrateurs de l’entreprise" />
-		<wellKnownID objectClass="text" translateFrom="%Users%" translateTo="Utilisateurs" />
-		<wellKnownID objectClass="text" translateFrom="%Guest%" translateTo="Invité" />
-		-->
-		<!-- FR-FR - END   -->
+		<wellKnownID objectClass="text" translateFrom="%Guests%" translateTo="Guests" />
+		<wellKnownID objectClass="text" translateFrom="%DomainUsers%" translateTo="Domain Users" />
+		<wellKnownID objectClass="text" translateFrom="%AuthenticatedUsers%" translateTo="Authenticated Users" />
+		<wellKnownID objectClass="text" translateFrom="%RemoteDesktopUsers%" translateTo="Remote Desktop Users" />
 		<wellKnownID objectClass="text" translateFrom="%NetBios%" translateTo="HARDEN" />
+		<wellKnownID objectClass="text" translateFrom="%Domain%" translateTo="HARDEN" />
 		<wellKnownID objectClass="text" translateFrom="%domaindns%" translateTo="HARDEN.AD" />
 		<wellKnownID objectClass="text" translateFrom="%DN%" translateTo="DC=HARDEN,DC=AD" />
 		<wellKnownID objectClass="text" translateFrom="%RootNetBios%" translateTo="HARDEN" />
-		<wellKnownID objectClass="text" translateFrom="%domain%" translateTo="HARDEN" />
 		<wellKnownID objectClass="text" translateFrom="%Rootdomaindns%" translateTo="HARDEN.AD" />
 		<wellKnownID objectClass="text" translateFrom="%RootDN%" translateTo="DC=HARDEN,DC=AD" />
-		<wellKnownID objectClass="text" translateFrom="%AuthenticatedUsers%" translateTo="Authenticated Users" />
 		<wellKnownID objectClass="text" translateFrom="%DnsAdmins%" translateTo="DnsAdmins" />
-		<wellKnownID objectClass="text" translateFrom="%RemoteDesktopUsers%" translateTo="Remote Desktop Users" />
 		<wellKnownID objectClass="group" translateFrom="%isT0%" translateTo="T0" />
 		<wellKnownID objectClass="group" translateFrom="%isT1%" translateTo="T1" />
 		<wellKnownID objectClass="group" translateFrom="%isT2%" translateTo="T2" />
@@ -287,6 +270,7 @@
 		<wellKnownID objectClass="group" translateFrom="%t1l-global%" translateTo="L-S-T1L" />
 		<wellKnownID objectClass="group" translateFrom="%t2l-global%" translateTo="L-S-T2L" />
 		<wellKnownID objectClass="group" translateFrom="%t0-managers%" translateTo="G-S-T0_Managers" />
+		<wellKnownID objectClass="group" translateFrom="%t0-operators%" translateTo="G-S-T0_Operators" />
 		<wellKnownID objectClass="group" translateFrom="%pawaccess-logon%" translateTo="L-S-T0_PawAccess_Logon" />
 		<wellKnownID objectClass="group" translateFrom="%pawt0-logon%" translateTo="L-S-T0_PawT0_Logon" />
 		<wellKnownID objectClass="group" translateFrom="%pawt12l-logon%" translateTo="L-S-T0_PawT12L_Logon" />
@@ -1116,18 +1100,9 @@
 		<!--
 			Builtin Groups
 		-->
-		<!-- FR-FR -->
-		<!--
-		<Group name="Administrateurs de l’entreprise" Category="Security" Scope="Universal" Description="" Path="CN=Users,ROOTDN">
-			<Member samAccountName="G-S-T0_Managers" />
-		</Group>
-		-->
-		<!-- FR-FR -->
-		<!-- EN-US -->
 		<Group name="Enterprise Admins" Category="Security" Scope="Universal" Description="" Path="CN=Users,ROOTDN">
 			<Member samAccountName="G-S-T0_Managers" />
 		</Group>
-		<!-- EN-US -->
 		<Group name="Protected Users" Category="Security" Scope="Global" Description="" Path="CN=Users,ROOTDN">
 			<Member samAccountName="G-S-T0_Managers" />
 		</Group>
@@ -1511,11 +1486,17 @@
 		<!--
 			FILE CUSTOMIZATION BEFORE GPO IMPORT
 		-->
-		<Id Number="100" Name="Prepare GPO files before GPO import">
+		<Id Number="100" Name="Prepare GPO files before GPO import: Local Admins">
 			<CallingFunction>Set-TSLocalAdminGroups</CallingFunction>
 			<UseParameters>{60C4FFE1-F082-49EE-9AF2-F7ABA228D05F}</UseParameters>
 			<TaskEnabled>No</TaskEnabled>
 			<TaskDescription>Prepare `(Configuration.xml` before the GPO importation of '`(HAD-TS-Local-admins-groups`'</TaskDescription>
+		</Id>
+		<Id Number="101" Name="Prepare GPO files before GPO import: Allow Computer ReUse">
+			<CallingFunction>Set-GptTmplSID</CallingFunction>
+			<UseParameters>{3B6DC475-6822-49C1-B47A-4199DF4FE1E6}</UseParameters>
+			<TaskEnabled>No</TaskEnabled>
+			<TaskDescription>Prepare `(GptTmpl.inf` before the GPO importation of '`(HAD-DC-Allow-Computer-Account-ReUse`'</TaskDescription>
 		</Id>
 		<!-- 
 			IMPORT WMI FILTERS
@@ -1570,9 +1551,10 @@
 		-->
 		<Id Number="150" Name="Reset HAD Protected Groups Memberships">
 			<CallingFunction>Reset-GroupMembership</CallingFunction>
-			<UseParameters></UseParameters>
+			<UseParameters>
+			</UseParameters>
 			<TaskEnabled>No</TaskEnabled>
-			<TaskDescription>Update `(groups' memberships` to match the `[trusted list`</TaskDescription>
+			<TaskDescription>Update `(groups's membeberships` to match the `[trusted list`</TaskDescription>
 		</Id>
 		<!-- 
 			CROSS INTEGRATION OF ADMIN GROUPS (disabled for rewriting in 2.9.9)
